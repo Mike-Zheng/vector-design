@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Vector Design — 圖片轉 SVG 工具，瀏覽器內完成、圖片不上傳 | Image to SVG Tool</title>
+
+    <!--
+      SEO / 分享卡。三件**做不到**的事寫在這裡，免得下一個人以為壞了：
+
+      1. **meta 只有這一組，不做 per-route / pre-render。** 這是單頁 SPA 的固有限制，
+         爬蟲拿到的永遠是這一組。pre-render 要替一個「沒有後端、產物是純靜態 dist」的
+         專案引入一層建置複雜度，還會跟 BASE_PATH 與 wasm 產物路徑糾纏——**明確不做**。
+         （執行期 document.title = t(...) 只影響分頁標籤，對爬蟲無效。）
+      2. **沒有 canonical / og:url。** 它們要絕對網址，但部署位址不固定（BASE_PATH 可以是
+         子路徑，別人自架時網域也不同）。硬寫一個會在所有非官方部署上指錯，比不放還糟。
+      3. **沒有 og:image。** 它需要一張真的 1200×630 PNG，而 Twitter／Facebook／Slack
+         都不吃 SVG——指過去會留一塊破圖區，比沒有更難看。分享卡先退成純文字 summary。
+         要補的話：放一張 web/public/og.png 再加回 og:image 與 twitter:image。
+    -->
+    <meta
+      name="description"
+      content="純瀏覽器的圖片轉 SVG 工具：把 PNG／JPG 轉成可改色、可做動畫的向量路徑，轉完可直接編輯節點與圖層。圖片不上傳任何伺服器，免註冊、無浮水印。"
+    />
+    <meta name="theme-color" content="#f7fafc" />
+    <meta name="color-scheme" content="dark light" />
+    <script>
+      // 載入前先套 .dark 防閃白；邏輯與 src/composables/useTheme.ts 一致（key: merino.theme）。
+      (function () {
+        try {
+          var t = localStorage.getItem('merino.theme') || 'system';
+          var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vector Design" />
+    <meta property="og:title" content="Vector Design — 圖片轉 SVG 工具，瀏覽器內完成、圖片不上傳" />
+    <meta
+      property="og:description"
+      content="把 PNG／JPG 轉成可改色、可做動畫的向量路徑，轉完可直接編輯節點與圖層。圖片不上傳任何伺服器，免註冊、無浮水印。"
+    />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Vector Design — 圖片轉 SVG 工具，瀏覽器內完成、圖片不上傳" />
+    <meta
+      name="twitter:description"
+      content="把 PNG／JPG 轉成可改色、可做動畫的向量路徑。圖片不上傳任何伺服器，免註冊、無浮水印。"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Vector Design",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any (web browser)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-DmxCYFdF.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B9G2tvbp.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
